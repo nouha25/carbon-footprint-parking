@@ -1,28 +1,40 @@
 
 import React, { useState } from 'react';
+import { CitySelector } from '@/components/CitySelector';
 import { DestinationInput } from '@/components/DestinationInput';
 import { RouteDisplay } from '@/components/RouteDisplay';
 import { ParkingAvailability } from '@/components/ParkingAvailability';
 import { MapView } from '@/components/MapView';
 import { Card } from '@/components/ui/card';
+import { citiesData } from '@/data/cities';
 
 const Index = () => {
+  const [selectedCity, setSelectedCity] = useState('paris');
   const [destination, setDestination] = useState('');
   const [selectedRoute, setSelectedRoute] = useState(null);
   const [showResults, setShowResults] = useState(false);
 
+  const currentCityData = citiesData[selectedCity];
+
+  const handleCityChange = (city: string) => {
+    setSelectedCity(city);
+    setDestination('');
+    setSelectedRoute(null);
+    setShowResults(false);
+  };
+
   const handleDestinationSubmit = (dest: string) => {
     setDestination(dest);
     setShowResults(true);
-    // Simulate route calculation with Paris-specific data
+    // Simulate route calculation with city-specific data
     setTimeout(() => {
       setSelectedRoute({
         distance: '1.8 km',
         duration: '6 minutes',
         carbonFootprint: '0.32 kg CO₂',
-        parkingSpaces: 8,
-        parkingLocation: 'Parking Vélib Métropole',
-        address: '15 Rue de la Paix, 75002 Paris'
+        parkingSpaces: Math.floor(Math.random() * 15) + 5,
+        parkingLocation: currentCityData.parkingPrefix,
+        address: `15 Rue de la République, ${currentCityData.name}`
       });
     }, 1500);
   };
@@ -36,9 +48,9 @@ const Index = () => {
             <div className="w-8 h-8 bg-green-500 rounded-lg flex items-center justify-center">
               <span className="text-white font-bold">P</span>
             </div>
-            Paris EcoParking
+            EcoParking France
           </h1>
-          <p className="text-muted-foreground mt-1">Trouvez le parking optimal avec la plus faible empreinte carbone à Paris</p>
+          <p className="text-muted-foreground mt-1">Trouvez le parking optimal avec la plus faible empreinte carbone en France</p>
         </div>
       </div>
 
@@ -46,9 +58,17 @@ const Index = () => {
         <div className="grid lg:grid-cols-2 gap-8">
           {/* Left Panel - Controls and Results */}
           <div className="space-y-6">
+            {/* City Selection */}
+            <Card className="p-6">
+              <CitySelector selectedCity={selectedCity} onCityChange={handleCityChange} />
+            </Card>
+
             {/* Destination Input */}
             <Card className="p-6">
-              <DestinationInput onSubmit={handleDestinationSubmit} />
+              <DestinationInput 
+                onSubmit={handleDestinationSubmit} 
+                cityData={currentCityData}
+              />
             </Card>
 
             {/* Route Display */}
@@ -69,7 +89,11 @@ const Index = () => {
           {/* Right Panel - Map */}
           <div className="lg:sticky lg:top-24 lg:h-[calc(100vh-8rem)]">
             <Card className="h-full overflow-hidden">
-              <MapView destination={destination} route={selectedRoute} />
+              <MapView 
+                destination={destination} 
+                route={selectedRoute} 
+                cityName={currentCityData.name}
+              />
             </Card>
           </div>
         </div>

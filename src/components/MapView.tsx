@@ -14,9 +14,10 @@ interface RouteData {
 interface MapViewProps {
   destination: string;
   route: RouteData | null;
+  cityName: string;
 }
 
-export const MapView: React.FC<MapViewProps> = ({ destination, route }) => {
+export const MapView: React.FC<MapViewProps> = ({ destination, route, cityName }) => {
   if (!destination) {
     return (
       <div className="h-full flex items-center justify-center bg-gradient-to-br from-muted/20 to-muted/40 text-center p-8">
@@ -25,9 +26,9 @@ export const MapView: React.FC<MapViewProps> = ({ destination, route }) => {
             <MapPin className="w-8 h-8 text-muted-foreground" />
           </div>
           <div className="space-y-2">
-            <h3 className="text-lg font-medium text-muted-foreground">Carte Interactive de Paris</h3>
+            <h3 className="text-lg font-medium text-muted-foreground">Carte Interactive de {cityName}</h3>
             <p className="text-sm text-muted-foreground">
-              Entrez une destination parisienne pour voir votre itinéraire et les options de parking
+              Entrez une destination à {cityName} pour voir votre itinéraire et les options de parking
             </p>
           </div>
         </div>
@@ -43,7 +44,7 @@ export const MapView: React.FC<MapViewProps> = ({ destination, route }) => {
         <div className="bg-white/90 backdrop-blur-sm rounded-lg p-4 shadow-sm">
           <div className="flex items-center gap-2 mb-2">
             <Route className="w-4 h-4 text-green-600" />
-            <span className="text-sm font-medium">Itinéraire vers {destination}</span>
+            <span className="text-sm font-medium">Itinéraire vers {destination} - {cityName}</span>
           </div>
           {route && (
             <div className="text-xs text-muted-foreground">
@@ -101,7 +102,7 @@ export const MapView: React.FC<MapViewProps> = ({ destination, route }) => {
         {/* Map Footer */}
         <div className="bg-white/90 backdrop-blur-sm rounded-lg p-3 shadow-sm">
           <div className="flex items-center justify-between text-xs text-muted-foreground">
-            <span>Données trafic temps réel</span>
+            <span>Données trafic temps réel - {cityName}</span>
             <span>Mis à jour il y a 45s</span>
           </div>
         </div>
@@ -110,7 +111,7 @@ export const MapView: React.FC<MapViewProps> = ({ destination, route }) => {
       {/* Map Integration Note */}
       <div className="absolute bottom-4 left-4 bg-blue-50 border border-blue-200 rounded-lg p-3 max-w-xs">
         <div className="text-xs text-blue-700">
-          <strong>Note:</strong> Carte interactive avec intégration Mapbox sera ajoutée pour une fonctionnalité complète avec navigation réelle.
+          <strong>Note:</strong> Carte interactive avec intégration Mapbox sera ajoutée pour une fonctionnalité complète avec navigation réelle pour {cityName}.
         </div>
       </div>
     </div>
