@@ -14,15 +14,15 @@ const Index = () => {
   const handleDestinationSubmit = (dest: string) => {
     setDestination(dest);
     setShowResults(true);
-    // Simulate route calculation
+    // Simulate route calculation with Paris-specific data
     setTimeout(() => {
       setSelectedRoute({
-        distance: '2.3 km',
-        duration: '8 minutes',
-        carbonFootprint: '0.45 kg CO₂',
-        parkingSpaces: 12,
-        parkingLocation: 'EcoPark Downtown',
-        address: '123 Green Street, Downtown'
+        distance: '1.8 km',
+        duration: '6 minutes',
+        carbonFootprint: '0.32 kg CO₂',
+        parkingSpaces: 8,
+        parkingLocation: 'Parking Vélib Métropole',
+        address: '15 Rue de la Paix, 75002 Paris'
       });
     }, 1500);
   };
@@ -36,9 +36,9 @@ const Index = () => {
             <div className="w-8 h-8 bg-green-500 rounded-lg flex items-center justify-center">
               <span className="text-white font-bold">P</span>
             </div>
-            EcoParking Finder
+            Paris EcoParking
           </h1>
-          <p className="text-muted-foreground mt-1">Find optimal parking with the lowest carbon footprint</p>
+          <p className="text-muted-foreground mt-1">Trouvez le parking optimal avec la plus faible empreinte carbone à Paris</p>
         </div>
       </div>
 

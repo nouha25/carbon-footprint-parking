@@ -25,30 +25,34 @@ export const DestinationInput: React.FC<DestinationInputProps> = ({ onSubmit }) 
   };
 
   const suggestedLocations = [
-    'Central Business District',
-    'Shopping Mall Plaza',
-    'University Campus',
-    'Airport Terminal'
+    'Champs-Élysées',
+    'Louvre Museum',
+    'Eiffel Tower',
+    'Notre-Dame Cathedral',
+    'Arc de Triomphe',
+    'Montmartre',
+    'Latin Quarter',
+    'Charles de Gaulle Airport'
   ];
 
   return (
     <div className="space-y-6">
       <div className="text-center space-y-2">
-        <h2 className="text-2xl font-semibold text-foreground">Where are you going?</h2>
-        <p className="text-muted-foreground">Enter your destination to find eco-friendly parking</p>
+        <h2 className="text-2xl font-semibold text-foreground">Où allez-vous à Paris ?</h2>
+        <p className="text-muted-foreground">Entrez votre destination pour trouver un parking écologique</p>
       </div>
 
       <form onSubmit={handleSubmit} className="space-y-4">
         <div className="space-y-2">
           <Label htmlFor="destination" className="text-sm font-medium">
-            Destination Address
+            Adresse de destination à Paris
           </Label>
           <div className="relative">
             <MapPin className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
             <Input
               id="destination"
               type="text"
-              placeholder="Enter your destination..."
+              placeholder="Entrez votre destination parisienne..."
               value={destination}
               onChange={(e) => setDestination(e.target.value)}
               className="pl-10 h-12 text-base"
@@ -65,19 +69,19 @@ export const DestinationInput: React.FC<DestinationInputProps> = ({ onSubmit }) 
           {isLoading ? (
             <div className="flex items-center gap-2">
               <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
-              Finding optimal route...
+              Recherche du meilleur itinéraire...
             </div>
           ) : (
             <div className="flex items-center gap-2">
               <Route className="w-4 h-4" />
-              Find Eco-Friendly Parking
+              Trouver un Parking Écologique
             </div>
           )}
         </Button>
       </form>
 
       <div className="space-y-3">
-        <p className="text-sm font-medium text-muted-foreground">Popular destinations:</p>
+        <p className="text-sm font-medium text-muted-foreground">Destinations populaires à Paris :</p>
         <div className="flex flex-wrap gap-2">
           {suggestedLocations.map((location) => (
             <Button
